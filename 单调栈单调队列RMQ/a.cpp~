@@ -1,0 +1,15 @@
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+#define Max 100010
+using namespace std;
+
+int n, m, k;
+
+int main() {
+	while(~scanf("%d%d%d", &n, &m, &k)) {
+
+	}
+	return 0;
+}
