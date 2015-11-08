@@ -1,0 +1,59 @@
+#include <stdio.h>
+#define Max 100
+int a[Max];
+int b[Max];
+
+void fun(int left, int right) {
+	int middle = (left + right) / 2;
+	int aa = left;
+	int bb = middle + 1;
+	int con = 1;
+	for(; aa <= middle && bb <= right;) {
+		if(a[aa] < a[bb]) {
+			b[con] = a[aa];
+			con++;
+			aa++;
+		}	
+		else {
+			b[con] = a[bb];
+			con++;
+			bb++;
+		}
+	}
+	while(aa <= middle) {
+		b[con] = a[aa];
+		con++;
+		aa++;
+	}
+	while(bb <= right) {
+		b[con] = a[bb];
+		con++;
+		bb++;
+	}
+	con = 1;
+	for(int i = left; i <= right; i++)
+		a[i] = b[con++];
+}
+
+void paixun1(int left, int right) {
+	if(left < right) {
+		int middle = (left + right) / 2;
+		paixun1(left, middle);
+		paixun1(middle + 1, right);
+		fun(left, right);
+	}
+}
+
+void paixun2()
+
+int main() {
+	int i, n;
+	scanf("%d", &n);
+	for(i = 1; i <= n; i++) 
+		scanf("%d", &a[i]);
+	paixun1(1, n);
+	for(i = 1; i <= n; i++)
+		printf("%d ", a[i]);
+	printf("\n");
+	return 0;
+}
