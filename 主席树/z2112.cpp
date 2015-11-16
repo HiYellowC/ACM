@@ -45,7 +45,6 @@ int UpdateT(int oldroot, int pos, int val) {
 			l = mid + 1;
 		}
 	}
-	T[now] = T[oldroot] + val;
 	return tmp;
 }
 
