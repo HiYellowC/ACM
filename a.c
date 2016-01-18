@@ -4,25 +4,16 @@
 
 int main() {
 	srand(time(NULL));
-	int t = 1;
-	int n = 10;
-	printf("%d %d\n", t, n);
-	for(int i = 1; i <= n; i++) {
-		printf("%d ", rand() % 2);	
-	}
-	printf("\n");
-	int q = 100;
-	printf("%d\n", q);
-	while(q--) {
-		int l, r;
-		l = rand() % n + 1;
-		r = rand() % n + 1;
-		if(l > r) {
-			int temp = l;
-			l = r;
-			r = temp;
+	int t = 5;
+	int n;
+	while(t--) {
+		if(t == 0) n = 1000;	
+		else n = rand() % 1000 + 1;
+		printf("%d\n", n);
+		for(int i = 1; i <= n; i++) {
+			int num = rand() % 0x7fffffff + 1;	
+			printf("%d%c", num, " \n"[i == n]);
 		}
-		printf("%d %d\n", l, r);
 	}
 	return 0;
 }

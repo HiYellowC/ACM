@@ -1,59 +1,42 @@
-#include <stdio.h>
-#define Max 100
-int a[Max];
-int b[Max];
-
-void fun(int left, int right) {
-	int middle = (left + right) / 2;
-	int aa = left;
-	int bb = middle + 1;
-	int con = 1;
-	for(; aa <= middle && bb <= right;) {
-		if(a[aa] < a[bb]) {
-			b[con] = a[aa];
-			con++;
-			aa++;
-		}	
-		else {
-			b[con] = a[bb];
-			con++;
-			bb++;
+#include <iostream>
+#include <cmath>
+#include <cstdio>
+#include <cstring>
+#include <vector>
+using namespace std;
+int C[1111][1111];
+const int MOD=1e6+3;
+#define LL long long
+int main(){
+	int N;
+	C[0][0]=1;
+	for(int i=1;i<=1000;i++){
+		for(int j=0;j<=i;j++){
+			if(j==0) C[j][i]=1;
+			else C[j][i]=(C[j][i-1]+C[j-1][i-1])%MOD;
 		}
-	}
-	while(aa <= middle) {
-		b[con] = a[aa];
-		con++;
-		aa++;
-	}
-	while(bb <= right) {
-		b[con] = a[bb];
-		con++;
-		bb++;
-	}
-	con = 1;
-	for(int i = left; i <= right; i++)
-		a[i] = b[con++];
-}
 
-void paixun1(int left, int right) {
-	if(left < right) {
-		int middle = (left + right) / 2;
-		paixun1(left, middle);
-		paixun1(middle + 1, right);
-		fun(left, right);
 	}
-}
-
-void paixun2()
-
-int main() {
-	int i, n;
-	scanf("%d", &n);
-	for(i = 1; i <= n; i++) 
-		scanf("%d", &a[i]);
-	paixun1(1, n);
-	for(i = 1; i <= n; i++)
-		printf("%d ", a[i]);
-	printf("\n");
+	while(scanf("%d",&N)!=EOF){
+		int tmp;
+		int num[31];
+		memset(num,0,sizeof(num));
+		for(int i=1;i<=N;i++){
+			scanf("%d",&tmp);
+			for(int i=0;i<=30;i++)
+				if((tmp>>i)&1)
+					num[i]++;
+		}
+		int ans[1111];
+		memset(ans,0,sizeof(ans));
+		for(int i=1;i<=N;i++)
+			for(int j=0;j<=30;j++)
+				for(int k=1;k<=num[j] && k<=i;k+=2){
+					ans[i]=(ans[i]+(LL)(1<<j)%MOD*(LL)C[k][num[j]]%MOD*(LL)C[i-k][N-num[j]]%MOD)%MOD;
+				}
+		for(int i=1;i<=N;i++)
+			printf("%d%c",ans[i],i==N?'\n':' ');
+	}
 	return 0;
 }
+
